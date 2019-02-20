@@ -1,5 +1,8 @@
 package marche.calcul;
 
+import graphique.donnees.Course;
+import graphique.donnees.Heure;
+import graphique.donnees.PointDePassage;
 import marche.donnees.courbes.Distance;
 import marche.donnees.courbes.Temps;
 import marche.donnees.polygone.PolygoneVitesse;
@@ -7,27 +10,39 @@ import marche.donnees.polygone.SegmentPolygone;
 
 public class CalculTempsTrajet {
 
-	public static double calculerTempsPolygone(PolygoneVitesse poly) {
-		double tempsTotal = 0;
+	/**
+	 * @param poly
+	 *            le polygone de vitesse
+	 * @return un objet Course qu'on pourra enregistrer en csv ou utiliser dans un graphique
+	 */
+	public static Course calculerTempsPolygone(PolygoneVitesse poly) {
+		double tempsTotal = 0, kilometrageCumule = 0;
+		Course course = new Course();
+		course.getParcours().add(new PointDePassage(new Heure(0), 0));
 
 		for (int i = 0; i < poly.getCourbe().size(); i++) {
 			SegmentPolygone segment = poly.getCourbe().get(i);
 
-			// Les vitesses initiales et finales sont 0 par défaut au début et à
-			// la fin de la courbe
+			// Les vitesses initiales et finales sont 0 par défaut au début et à la fin de la courbe
 			double vDebut = 0, vFin = 0;
 
 			// si on n'est pas au début on prend la vitesse du segment précédent
 			if (i > 0) {
 				vDebut = poly.getCourbe().get(i - 1).getVitessePlafond();
 			}
-			// si on n'est pas au dernier segment, on prend comme vitesse de fin
-			// celle du segment suivant
+			// si on n'est pas au dernier segment, on prend comme vitesse de fin celle du segment suivant
 			if (i < poly.getCourbe().size() - 1) {
 				vFin = poly.getCourbe().get(i + 1).getVitessePlafond();
 			}
 			double tempsSegment = calculerTempsSegment(vDebut, segment, vFin);
 			tempsTotal += tempsSegment;
+
+			// créer le PointPassage qui va être enregistré dans la Course
+			Heure heurePassage = new Heure(tempsTotal);
+			if (segment.getVitessePlafond() > 0) {
+				kilometrageCumule += segment.getLongueur();
+			}
+			course.getParcours().add(new PointDePassage(heurePassage, kilometrageCumule));
 
 			if (segment.getVitessePlafond() > 0) {
 				System.out.println("km " + segment.getPkDebut() + " : Début d'un segment de " + segment.getLongueur()
@@ -41,7 +56,7 @@ public class CalculTempsTrajet {
 
 		}
 		System.out.println("arrivé au bout de " + tempsTotal + " secondes");
-		return tempsTotal;
+		return course;
 	}
 
 	/**

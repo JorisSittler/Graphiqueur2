@@ -1,6 +1,9 @@
-package graphique;
+package graphique.export;
+
+import graphique.donnees.Course;
+import graphique.donnees.PointDePassage;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,8 +15,8 @@ public class ExportCsv {
 		try {
 			FileWriter writer = new FileWriter(sFileName);
 
-			writer.append("" + c.numero + "\n");
-			for (PointDePassage p : c.parcours) {
+			writer.append("" + c.getNumero() + "\n");
+			for (PointDePassage p : c.getParcours()) {
 				writer.append(p.toCSV());
 				writer.append('\n');
 			}
@@ -35,13 +38,13 @@ public class ExportCsv {
 			crunchifyBuffer = new BufferedReader(new FileReader(file));
 
 			while ((crunchifyLine = crunchifyBuffer.readLine()) != null) {
-//				System.out.println("Raw CSV data: " + crunchifyLine);
+				// System.out.println("Raw CSV data: " + crunchifyLine);
 				String h = crunchifyCSVtoArrayList(crunchifyLine)[0];
 				String m = crunchifyCSVtoArrayList(crunchifyLine)[1];
 				String k = crunchifyCSVtoArrayList(crunchifyLine)[2];
-				String[] tab = {h, m, k};
+				String[] tab = { h, m, k };
 				liste.add(tab);
-//				System.out.println(h + ":" + m + ", " + k);
+				// System.out.println(h + ":" + m + ", " + k);
 			}
 
 		} catch (IOException e) {
@@ -68,7 +71,7 @@ public class ExportCsv {
 				}
 			}
 		}
-//		System.out.println(crunchifyResult[0] + " g " + crunchifyResult[1]);
+		// System.out.println(crunchifyResult[0] + " g " + crunchifyResult[1]);
 		return crunchifyResult;
 	}
 }

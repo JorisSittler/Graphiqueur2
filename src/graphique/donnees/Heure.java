@@ -1,21 +1,27 @@
-package graphique;
+package graphique.donnees;
+
 public class Heure {
 	int heure;
-	float minute;
+	double minute;
 
-	public Heure(int h, float m) {
+	public Heure(int h, double m) {
 		heure = h;
 		minute = m;
 	}
 
-	public Heure(int h) {
-		heure = h;
-		minute = 0;
+	/**
+	 * 
+	 * @param secondes
+	 *            l'heure en secondes qui sera convertie
+	 */
+	public Heure(double secondes) {
+		heure = (int) (secondes / 3600);
+		minute = (secondes % 3600) / 60;
 	}
-	
+
 	public Heure plus(Heure a) {
 		int h;
-		float m;
+		double m;
 
 		m = this.minute + a.minute;
 		h = this.heure + a.heure;
@@ -35,18 +41,20 @@ public class Heure {
 		return this.plus(h);
 	}
 
+	@Override
 	public String toString() {
 		return (heure + ":" + minute);
 	}
 
-	public float[] toTab(){
-		return new float[]{heure, minute};
+	public double[] toTab() {
+		return new double[] { heure, minute };
 	}
-	public String toCSV(){
+
+	public String toCSV() {
 		return ("" + heure + ", " + minute);
 	}
-	
-	public float toNumber() {
+
+	public double toNumber() {
 		return (heure + (minute / 60));
 	}
 }
