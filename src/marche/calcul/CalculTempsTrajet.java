@@ -3,8 +3,7 @@ package marche.calcul;
 import graphique.donnees.Course;
 import graphique.donnees.Heure;
 import graphique.donnees.PointDePassage;
-import marche.donnees.courbes.Distance;
-import marche.donnees.courbes.Temps;
+import marche.donnees.courbes.Performance;
 import marche.donnees.polygone.PolygoneVitesse;
 import marche.donnees.polygone.SegmentPolygone;
 
@@ -15,7 +14,7 @@ public class CalculTempsTrajet {
 	 *            le polygone de vitesse
 	 * @return un objet Course qu'on pourra enregistrer en csv ou utiliser dans un graphique
 	 */
-	public static Course calculerTempsPolygone(PolygoneVitesse poly) {
+	public static Course calculerTempsPolygone(Performance perf, PolygoneVitesse poly) {
 		double tempsTotal = 0, kilometrageCumule = 0;
 		Course course = new Course();
 		course.getParcours().add(new PointDePassage(new Heure(0), 0));
@@ -34,7 +33,7 @@ public class CalculTempsTrajet {
 			if (i < poly.getCourbe().size() - 1) {
 				vFin = poly.getCourbe().get(i + 1).getVitessePlafond();
 			}
-			double tempsSegment = calculerTempsSegment(vDebut, segment, vFin);
+			double tempsSegment = calculerTempsSegment(perf, vDebut, segment, vFin);
 			tempsTotal += tempsSegment;
 
 			// créer le PointPassage qui va être enregistré dans la Course
@@ -67,7 +66,8 @@ public class CalculTempsTrajet {
 	 * @param vitesseApres
 	 * @return la durée en secondes
 	 */
-	public static double calculerTempsSegment(double vitesseAvant, SegmentPolygone element, double vitesseApres) {
+	public static double calculerTempsSegment(Performance perf, double vitesseAvant, SegmentPolygone element,
+			double vitesseApres) {
 		double vitessePlafond = element.getVitessePlafond();
 		if (vitessePlafond > 0) {
 			// si ce n'est pas un arrêt
@@ -77,15 +77,15 @@ public class CalculTempsTrajet {
 
 			if (vitessePlafond > vitesseAvant) {
 				// accélération au début
-				distanceAcc = Distance.acceleration(vitesseAvant, vitessePlafond);
-				tempsAcc = Temps.acceleration(vitesseAvant, vitessePlafond);
+				distanceAcc = perf.distAcceleration(vitesseAvant, vitessePlafond);
+				tempsAcc = perf.tempsAcceleration(vitesseAvant, vitessePlafond);
 				System.out.println("\taccélération en début de segment de " + vitesseAvant + " à " + vitessePlafond
 						+ " km/h : " + distanceAcc / 1000 + " km parcourus en " + tempsAcc + " sec");
 			}
 			if (vitessePlafond > vitesseApres) {
 				// décélération à la fin
-				distanceDec = Distance.freinage(vitessePlafond, vitesseApres);
-				tempsDec = Temps.freinage(vitessePlafond, vitesseApres);
+				distanceDec = perf.distFreinage(vitessePlafond, vitesseApres);
+				tempsDec = perf.tempsFreinage(vitessePlafond, vitesseApres);
 				System.out.println("\tdécélération en fin de segment de " + vitessePlafond + " à " + vitesseApres
 						+ " km/h : " + distanceDec / 1000 + " km parcourus en " + tempsDec + " sec");
 			}
@@ -97,7 +97,7 @@ public class CalculTempsTrajet {
 			if (distanceVCst < 0) {
 				System.out.println("\t\tdistance trop courte, on réessaye avec une vitesse réduite à " + vitessePlafond
 						* 0.95);
-				return calculerTempsSegment(vitesseAvant, new SegmentPolygone(element, vitessePlafond * 0.95),
+				return calculerTempsSegment(perf, vitesseAvant, new SegmentPolygone(element, vitessePlafond * 0.95),
 						vitesseApres);
 			}
 

@@ -3,18 +3,27 @@ package courbes;
 import static org.junit.Assert.assertEquals;
 import graphique.donnees.Course;
 import marche.calcul.CalculTempsTrajet;
+import marche.donnees.courbes.Performance;
+import marche.donnees.courbes.PerformanceCalculee;
 import marche.donnees.polygone.PolygoneVitesse;
 import marche.donnees.polygone.SegmentPolygone;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestCalcul {
+	Performance perf;
+
+	@Before
+	public void init() {
+		perf = new PerformanceCalculee(10, 0.5, 1);
+	}
 
 	@Test
 	public void test200Cst() {
 		SegmentPolygone el = new SegmentPolygone(0, 10, 200);
 
-		double t = CalculTempsTrajet.calculerTempsSegment(200, el, 200);
+		double t = CalculTempsTrajet.calculerTempsSegment(perf, 200, el, 200);
 
 		// vérifie qu'on obtient bien 3 minutes pour 10 km à 200
 		assertEquals(180, t, 0);
@@ -24,7 +33,7 @@ public class TestCalcul {
 	public void test200TropCourt() {
 		SegmentPolygone el = new SegmentPolygone(0, 10, 200);
 
-		double t = CalculTempsTrajet.calculerTempsSegment(0, el, 0);
+		double t = CalculTempsTrajet.calculerTempsSegment(perf, 0, el, 0);
 
 		// vérifie qu'on obtient bien 3 minutes pour 10 km à 200
 		assertEquals(180, t, 0);
@@ -34,7 +43,7 @@ public class TestCalcul {
 	public void test200Arret() {
 		SegmentPolygone el = new SegmentPolygone(0, 100, 200);
 
-		double t = CalculTempsTrajet.calculerTempsSegment(0, el, 0);
+		double t = CalculTempsTrajet.calculerTempsSegment(perf, 0, el, 0);
 
 		// vérifie qu'on obtient bien 30 minutes pour 100 km à 200
 		assertEquals(1800, t, 0);
@@ -44,7 +53,7 @@ public class TestCalcul {
 	public void testArret() {
 		SegmentPolygone el = new SegmentPolygone(0, 2, 0);
 
-		double t = CalculTempsTrajet.calculerTempsSegment(200, el, 200);
+		double t = CalculTempsTrajet.calculerTempsSegment(perf, 200, el, 200);
 
 		// vérifie qu'on obtient bien 120 secondes pour un arrêt de 2 minutes
 		assertEquals(120, t, 0);
@@ -59,7 +68,7 @@ public class TestCalcul {
 		pol.getCourbe().add(el);
 		pol.getCourbe().add(el2);
 
-		Course c = CalculTempsTrajet.calculerTempsPolygone(pol);
+		Course c = CalculTempsTrajet.calculerTempsPolygone(perf, pol);
 
 		// vérifie qu'on obtient bien 2h pour 400 km à 200
 		System.out.println(c);
@@ -76,7 +85,7 @@ public class TestCalcul {
 		pol.getCourbe().add(ar);
 		pol.getCourbe().add(el2);
 
-		Course c = CalculTempsTrajet.calculerTempsPolygone(pol);
+		Course c = CalculTempsTrajet.calculerTempsPolygone(perf, pol);
 
 		// vérifie qu'on obtient bien 2h05 pour 40 km à 200 + 5 minutes
 		// d'arrêt
@@ -98,7 +107,7 @@ public class TestCalcul {
 		pol.getCourbe().add(ar2);
 		pol.getCourbe().add(el3);
 
-		Course c = CalculTempsTrajet.calculerTempsPolygone(pol);
+		Course c = CalculTempsTrajet.calculerTempsPolygone(perf, pol);
 
 		// vérifie qu'on obtient bien 2h05 pour 40 km à 200 + 5 minutes
 		// d'arrêt

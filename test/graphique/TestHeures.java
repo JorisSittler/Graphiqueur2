@@ -3,12 +3,21 @@ package graphique;
 import graphique.donnees.Course;
 import graphique.donnees.Heure;
 import graphique.horaire.CalculHoraire;
+import marche.donnees.courbes.Performance;
+import marche.donnees.courbes.PerformanceCalculee;
 import marche.donnees.polygone.PolygoneVitesse;
 import marche.donnees.polygone.SegmentPolygone;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestHeures {
+	Performance perf;
+
+	@Before
+	public void init() {
+		perf = new PerformanceCalculee(10, 0.5, 1);
+	}
 
 	@Test
 	public void test() {
@@ -33,7 +42,7 @@ public class TestHeures {
 
 		Heure dep = new Heure(17, 42);
 
-		Course c = CalculHoraire.creerCourse(pol, dep, 500, false);
+		Course c = CalculHoraire.creerCourse(perf, pol, dep, 500, false);
 
 		// vérifier qu'on obtient bien 2h05 pour 40 km à 200 + 5 minutes d'arrêt
 		System.out.println(c);

@@ -20,7 +20,7 @@ public abstract class Performance {
 	 *            la vitesse
 	 * @return la distance en m entre le démarrage et l'atteinte de la vitesse v
 	 */
-	public abstract double dAcc(double vitesse);
+	protected abstract double dAcc(double vitesse);
 
 	/**
 	 * @param vitesseA
@@ -40,7 +40,7 @@ public abstract class Performance {
 	 *            la vitesse
 	 * @return la distance parcourue en m entre le début du freinage en vitesse et l'arrêt
 	 */
-	public abstract double dDec(double vitesse);
+	protected abstract double dDec(double vitesse);
 
 	/**
 	 * @param vitesseA
@@ -60,7 +60,7 @@ public abstract class Performance {
 	 *            la vitesse
 	 * @return le temps en secondes entre le démarrage et l'atteinte de la vitesse v
 	 */
-	public abstract double tAcc(double vitesse);
+	protected abstract double tAcc(double vitesse);
 
 	/**
 	 * @param vitessePlafond
@@ -80,6 +80,6 @@ public abstract class Performance {
 	 *            la vitesse
 	 * @return le temps en secondes entre le début du freinage en vitesse et l'arrêt
 	 */
-	public abstract double tDec(double vitesse);
+	protected abstract double tDec(double vitesse);
 
 }
