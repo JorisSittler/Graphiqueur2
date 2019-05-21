@@ -54,7 +54,8 @@ public class CalculTempsTrajet {
 			}
 
 		}
-		System.out.println("arrivé au bout de " + tempsTotal + " secondes");
+		System.out.println("arrivé au bout de " + tempsTotal + " secondes pour " + kilometrageCumule + " km.");
+		System.out.println("soit " + (int) tempsTotal / 60 + " minutes " + tempsTotal % 60 + " secondes.");
 		return course;
 	}
 
@@ -79,15 +80,15 @@ public class CalculTempsTrajet {
 				// accélération au début
 				distanceAcc = perf.distAcceleration(vitesseAvant, vitessePlafond);
 				tempsAcc = perf.tempsAcceleration(vitesseAvant, vitessePlafond);
-				System.out.println("\taccélération en début de segment de " + vitesseAvant + " à " + vitessePlafond
-						+ " km/h : " + distanceAcc / 1000 + " km parcourus en " + tempsAcc + " sec");
+				// System.out.println("\taccélération en début de segment de " + vitesseAvant + " à " + vitessePlafond
+				// + " km/h : " + distanceAcc / 1000 + " km parcourus en " + tempsAcc + " sec");
 			}
 			if (vitessePlafond > vitesseApres) {
 				// décélération à la fin
 				distanceDec = perf.distFreinage(vitessePlafond, vitesseApres);
 				tempsDec = perf.tempsFreinage(vitessePlafond, vitesseApres);
-				System.out.println("\tdécélération en fin de segment de " + vitessePlafond + " à " + vitesseApres
-						+ " km/h : " + distanceDec / 1000 + " km parcourus en " + tempsDec + " sec");
+				// System.out.println("\tdécélération en fin de segment de " + vitessePlafond + " à " + vitesseApres
+				// + " km/h : " + distanceDec / 1000 + " km parcourus en " + tempsDec + " sec");
 			}
 			// distance en m restant à parcourir à Vmax
 			double distanceVCst = distanceSegment * 1000 - (distanceAcc + distanceDec);
@@ -95,15 +96,16 @@ public class CalculTempsTrajet {
 			// si résultat négatif : pas le temps d'atteindre Vplafond donc on va réessayer de façon récursive avec une
 			// vitesse plus faible de 5% jusqu'à atteindre un cas passant
 			if (distanceVCst < 0) {
-				System.out.println("\t\tdistance trop courte, on réessaye avec une vitesse réduite à " + vitessePlafond
-						* 0.95);
+				// System.out.println("\t\tdistance trop courte, on réessaye avec une vitesse réduite à " +
+				// vitessePlafond
+				// * 0.95);
 				return calculerTempsSegment(perf, vitesseAvant, new SegmentPolygone(element, vitessePlafond * 0.95),
 						vitesseApres);
 			}
 
 			double tempsVCst = distanceVCst / vitessePlafond * 3.6;
-			System.out.println("\til reste" + distanceVCst / 1000 + " km à parcourir à vitesse constante en "
-					+ tempsVCst + " sec");
+			// System.out.println("\til reste " + distanceVCst / 1000 + " km à parcourir à vitesse constante en "
+			// + tempsVCst + " sec");
 
 			// on cumule les trois temps :
 			return tempsAcc + tempsVCst + tempsDec;
