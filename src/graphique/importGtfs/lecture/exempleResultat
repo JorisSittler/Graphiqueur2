@@ -1,0 +1,67 @@
+Trip [routeId=OCE200734, serviceId=34749, tripId=OCESN096233F0300328914, tripHeadsign="96233", directionId=1, blockId=null, shapeId=null, listeArrets=[
+
+StopTime [tripId=OCESN096233F0300328914, arrivalTime=18:08:00, departureTime=18:10:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87214056, stopName="Gare de Sélestat", parentLocation=
+	Stop [stopId=StopArea:OCE87214056, stopName="Gare de Sélestat"], stopSequence=1, stopHeadsign="", 
+
+StopTime [tripId=OCESN096233F0300328914, arrivalTime=17:51:00, departureTime=17:51:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87212027, stopName="Gare de Strasbourg", parentLocation=
+	Stop [stopId=StopArea:OCE87212027, stopName="Gare de Strasbourg"], stopSequence=0, stopHeadsign="", 
+
+StopTime [tripId=OCESN096233F0300328914, arrivalTime=19:09:00, departureTime=19:09:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-85000109, stopName="Gare de Basel-SBB", parentLocation=
+	Stop [stopId=StopArea:OCE85000109, stopName="Gare de Basel-SBB"], stopSequence=5, stopHeadsign="", 
+
+StopTime [tripId=OCESN096233F0300328914, arrivalTime=19:00:00, departureTime=19:01:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182139, stopName="Gare de St-Louis (Haut-Rhin)", parentLocation=
+	Stop [stopId=StopArea:OCE87182139, stopName="Gare de St-Louis (Haut-Rhin)"], stopSequence=4, stopHeadsign="", 
+
+StopTime [tripId=OCESN096233F0300328914, arrivalTime=18:21:00, departureTime=18:23:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182014, stopName="Gare de Colmar", parentLocation=
+	Stop [stopId=StopArea:OCE87182014, stopName="Gare de Colmar"], stopSequence=2, stopHeadsign="", 
+
+StopTime [tripId=OCESN096233F0300328914, arrivalTime=18:44:00, departureTime=18:46:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182063, stopName="Gare de Mulhouse", parentLocation=
+	Stop [stopId=StopArea:OCE87182063, stopName="Gare de Mulhouse"], stopSequence=3, stopHeadsign=""]]
+Trip [routeId=OCE200734, serviceId=34760, tripId=OCESN832347F0100154738, tripHeadsign="832347", directionId=1, blockId=null, shapeId=null, listeArrets=[
+
+StopTime [tripId=OCESN832347F0100154738, arrivalTime=13:16:00, departureTime=13:16:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182063, stopName="Gare de Mulhouse", parentLocation=
+	Stop [stopId=StopArea:OCE87182063, stopName="Gare de Mulhouse"], stopSequence=3, stopHeadsign="", 
+
+StopTime [tripId=OCESN832347F0100154738, arrivalTime=12:40:00, departureTime=12:41:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87214056, stopName="Gare de Sélestat", parentLocation=
+	Stop [stopId=StopArea:OCE87214056, stopName="Gare de Sélestat"], stopSequence=1, stopHeadsign="", 
+
+StopTime [tripId=OCESN832347F0100154738, arrivalTime=12:52:00, departureTime=12:53:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182014, stopName="Gare de Colmar", parentLocation=
+	Stop [stopId=StopArea:OCE87182014, stopName="Gare de Colmar"], stopSequence=2, stopHeadsign="", 
+
+StopTime [tripId=OCESN832347F0100154738, arrivalTime=12:21:00, departureTime=12:21:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87212027, stopName="Gare de Strasbourg", parentLocation=
+	Stop [stopId=StopArea:OCE87212027, stopName="Gare de Strasbourg"], stopSequence=0, stopHeadsign=""]]
+Trip [routeId=OCE200734, serviceId=34790, tripId=OCESN096206F0200228840, tripHeadsign="96206", directionId=0, blockId=null, shapeId=null, listeArrets=[
+
+StopTime [tripId=OCESN096206F0200228840, arrivalTime=06:29:00, departureTime=06:30:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182139, stopName="Gare de St-Louis (Haut-Rhin)", parentLocation=
+	Stop [stopId=StopArea:OCE87182139, stopName="Gare de St-Louis (Haut-Rhin)"], stopSequence=1, stopHeadsign="", 
+
+StopTime [tripId=OCESN096206F0200228840, arrivalTime=07:05:00, departureTime=07:07:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182014, stopName="Gare de Colmar", parentLocation=
+	Stop [stopId=StopArea:OCE87182014, stopName="Gare de Colmar"], stopSequence=3, stopHeadsign="", 
+
+StopTime [tripId=OCESN096206F0200228840, arrivalTime=07:17:00, departureTime=07:19:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87214056, stopName="Gare de Sélestat", parentLocation=
+	Stop [stopId=StopArea:OCE87214056, stopName="Gare de Sélestat"], stopSequence=4, stopHeadsign="", 
+
+StopTime [tripId=OCESN096206F0200228840, arrivalTime=07:39:00, departureTime=07:39:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87212027, stopName="Gare de Strasbourg", parentLocation=
+	Stop [stopId=StopArea:OCE87212027, stopName="Gare de Strasbourg"], stopSequence=5, stopHeadsign="", 
+
+StopTime [tripId=OCESN096206F0200228840, arrivalTime=06:44:00, departureTime=06:46:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-87182063, stopName="Gare de Mulhouse", parentLocation=
+	Stop [stopId=StopArea:OCE87182063, stopName="Gare de Mulhouse"], stopSequence=2, stopHeadsign="", 
+
+StopTime [tripId=OCESN096206F0200228840, arrivalTime=06:21:00, departureTime=06:21:00, stopId=
+	Stop [stopId=StopPoint:OCETrain TER-85000109, stopName="Gare de Basel-SBB", parentLocation=
+	Stop [stopId=StopArea:OCE85000109, stopName="Gare de Basel-SBB"], stopSequence=0, stopHeadsign=""]]

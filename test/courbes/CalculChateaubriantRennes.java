@@ -161,4 +161,22 @@ public class CalculChateaubriantRennes {
 		CalculTempsTrajet.calculerTempsPolygone(perf, pol);
 	}
 
+	@Test
+	public void testCalculIntergare() {
+		System.out.println("\n\ncalcul du trajet avec vitesse max 100 :");
+
+		SegmentPolygone el = new SegmentPolygone(0, 3.6, 100);
+		PolygoneVitesse pol = new PolygoneVitesse();
+		pol.getCourbe().add(el);
+
+		CalculTempsTrajet.calculerTempsPolygone(perf, pol);
+
+		System.out.println("calcul du trajet avec vitesse max 140 :");
+
+		el = new SegmentPolygone(0, 3.6, 140);
+		pol = new PolygoneVitesse();
+		pol.getCourbe().add(el);
+
+		CalculTempsTrajet.calculerTempsPolygone(perf, pol);
+	}
 }
