@@ -31,10 +31,8 @@ public class TableauHoraires {
 		this.listeTrips = new HashMap<>();
 
 		for (Trip trip : listeTrips.values()) {
-			if (trip.getRouteId().contentEquals(idLigne)) {
-				if (trip.getDirectionId().contentEquals(directionId)) {
-					this.listeTrips.put(trip.getTripId(), trip);
-				}
+			if (trip.getRouteId().contentEquals(idLigne) && trip.getDirectionId().contentEquals(directionId)) {
+				this.listeTrips.put(trip.getTripId(), trip);
 			}
 		}
 	}
@@ -52,6 +50,33 @@ public class TableauHoraires {
 
 		for (Trip trip : listeTrips.values()) {
 			if (trip.getRouteId().contentEquals(idLigne)) {
+				this.listeTrips.put(trip.getTripId(), trip);
+			}
+		}
+	}
+
+	/**
+	 * Ajoute au tableau un autre ligne afin de regrouper les trajets
+	 * 
+	 * @param ligne
+	 * @param direction
+	 */
+	public void ajouterLigne(String ligne, String direction, Map<String, Trip> trips) {
+		for (Trip trip : trips.values()) {
+			if (trip.getRouteId().contentEquals(ligne) && trip.getDirectionId().contentEquals(direction)) {
+				this.listeTrips.put(trip.getTripId(), trip);
+			}
+		}
+	}
+
+	/**
+	 * Ajoute au tableau un autre ligne afin de regrouper les trajets
+	 * 
+	 * @param ligne
+	 */
+	public void ajouterLigne(String ligne, Map<String, Trip> trips) {
+		for (Trip trip : trips.values()) {
+			if (trip.getRouteId().contentEquals(ligne)) {
 				this.listeTrips.put(trip.getTripId(), trip);
 			}
 		}
