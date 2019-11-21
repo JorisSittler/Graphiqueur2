@@ -12,11 +12,11 @@ import graphique.importGtfs.data.builder.TripBuilder;
 
 import java.util.Map;
 
-public class MainStar {
+public class MainRATP {
 	static String directory = "..\\fichiers\\";
 
 	public static void main(String[] args) {
-		String nomGTFS = "GTFS_2018.10.0_20190708_20190901\\";
+		String nomGTFS = "RATP_GTFS_BUS_Tvm\\";
 		long dateDebut = System.currentTimeMillis();
 
 		TripBuilder tb = new TripBuilder();
@@ -26,12 +26,9 @@ public class MainStar {
 
 		Map<String, Trip> listeTrips = tb.recupererToutAPartirDuFichier(directory, nomGTFS);
 		System.out.println("nombre de trips : " + listeTrips.size());
-		System.out.println(listeTrips.get("6262"));
 
 		Map<String, Stop> listeStops = sb.recupererToutAPartirDuFichier(directory, nomGTFS);
 		System.out.println("nombre de stops : " + listeStops.size());
-		System.out.println(listeStops.get("stop_id"));
-		System.out.println(listeStops.get("1042"));
 
 		Map<String, StopTime> listeStopTimes = stb.recupererToutAPartirDuFichier(directory, nomGTFS);
 		System.out.println("nombre de stopTimes : " + listeStopTimes.size());
@@ -42,16 +39,10 @@ public class MainStar {
 		long dateFin = System.currentTimeMillis();
 		System.out.println(("temps de calcul (ms) : " + (dateFin - dateDebut)));
 
-		// System.out.println(listeTrips.get("6262").afficher());
-		// LireContenuFichier.afficherTripsLigne(listeTrips, "0041");
+		// LireContenuFichier.afficherTripsLigne(listeTrips, "2051933");
 
-		// TableauHoraires th41 = new TableauHoraires("0041", "", listeTrips);
-		// th41.afficherCsvEnColonnes();
-		// th41.afficherCsvEnLignes();
-		// th41.afficherServices();
-
-		TableauHoraires thMetro = new TableauHoraires("1001", "", listeTrips);
+		TableauHoraires thMetro = new TableauHoraires("2165794", listeTrips);
 		// thMetro.afficherServices();
-		thMetro.afficherCsvEnColonnes();
+		thMetro.afficherCsvEnLignes();
 	}
 }

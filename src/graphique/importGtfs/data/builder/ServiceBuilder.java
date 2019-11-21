@@ -3,6 +3,7 @@ package graphique.importGtfs.data.builder;
 import graphique.importGtfs.data.DataElement;
 import graphique.importGtfs.data.Service;
 
+import java.util.List;
 import java.util.Map;
 
 public class ServiceBuilder extends DataElementBuilder {
@@ -18,10 +19,22 @@ public class ServiceBuilder extends DataElementBuilder {
 	public Map<String, Service> recupererToutAPartirDuFichier(String directory, String nomGTFS) {
 		// On ne peut pas cast directement de la map de DataElement en map de StopTime... donc bricolage sale
 		@SuppressWarnings("unchecked")
-		Map<String, Service> listeStops = (Map<String, Service>) (Map<String, ?>) lireFichier(directory, nomGTFS,
+		Map<String, Service> listeServices = (Map<String, Service>) (Map<String, ?>) lireFichier(directory, nomGTFS,
 				"calendar");
-		return listeStops;
-		// TODO ajouter les exceptions depuis calendar_dates.txt
+
+		// ajouter les exceptions depuis calendar_dates.txt
+		List<String[]> listeExceptions = lireFichierEnListe(directory, nomGTFS, "calendar_dates");
+		for (String[] exc : listeExceptions) {
+			if (listeServices.containsKey(exc[0])) {
+				// si l'exception concerne un service déjà connu : on l'ajoute au service
+				listeServices.get(exc[0]).ajouterException(exc);
+			} else {
+				// sinon on crée le service
+				listeServices.put(exc[0], new Service(exc));
+			}
+		}
+
+		return listeServices;
 	}
 
 	@Override

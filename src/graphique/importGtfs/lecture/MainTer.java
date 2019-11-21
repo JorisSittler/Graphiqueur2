@@ -16,7 +16,7 @@ public class MainTer {
 	static String directory = "..\\fichiers\\";
 
 	public static void main(String[] args) {
-		String nomGTFS = "export-ter-gtfs-last\\";
+		String nomGTFS = "export-ter-gtfs-last 201911\\";
 		long dateDebut = System.currentTimeMillis();
 
 		TripBuilder tb = new TripBuilder();
@@ -51,15 +51,18 @@ public class MainTer {
 		// afficherNumero(listeTrips, "857678");
 
 		TableauHoraires thLMRennes = new TableauHoraires("OCE17", "0", listeTrips);
-		TableauHoraires thStrBsl = new TableauHoraires("OCE200734", "1", listeTrips);
-		TableauHoraires thBslStr = new TableauHoraires("OCE200734", "0", listeTrips);
+		TableauHoraires thRennesLaval = new TableauHoraires("OCE164687", "0", listeTrips);
+		// TableauHoraires thStrBsl = new TableauHoraires("OCE200734", "1", listeTrips);
+		// TableauHoraires thBslStr = new TableauHoraires("OCE200734", "0", listeTrips);
 
 		// System.out.println(thLMRennes.getListeTrips());
 		// System.out.println(thStrBsl.getListeTrips());
 
-		thLMRennes.afficherCsvEnColonnes();
-		thStrBsl.afficherCsvEnLignes();
-		thStrBsl.afficherCsvEnColonnes();
-		thBslStr.afficherCsvEnLignes();
+		// thLMRennes.afficherCsvEnLignes(1640);
+		thRennesLaval.afficherServices();
+		thRennesLaval.afficherCsvEnLignes();
+		// thStrBsl.afficherCsvEnLignes();
+		// thStrBsl.afficherCsvEnColonnes();
+		// thBslStr.afficherCsvEnLignes();
 	}
 }

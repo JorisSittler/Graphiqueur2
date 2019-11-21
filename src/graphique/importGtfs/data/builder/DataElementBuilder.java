@@ -5,7 +5,9 @@ import graphique.importGtfs.data.DataElement;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class DataElementBuilder {
@@ -34,6 +36,34 @@ public abstract class DataElementBuilder {
 					String[] splitData = ligne.split("\\s*,\\s*");
 					result = decouperArrayEnObjet(new DataStructure(splitData));
 					resultat.put(result.getIdentifiant(), result);
+				}
+			}
+			br.close();
+		} catch (IOException e) {
+			System.out.println("erreur désérialization : " + e);
+			System.exit(-1);
+		}
+		return resultat;
+	}
+
+	/**
+	 * Lit un fichier .txt au format csv et renvoie la liste des Arrays contenus
+	 * 
+	 * @param nomGTFS
+	 * @param nomFichier
+	 * @return
+	 */
+	public List<String[]> lireFichierEnListe(String directory, String nomGTFS, String nomFichier) {
+		List<String[]> resultat = new ArrayList<String[]>();
+		String ligne = null;
+		String cheminFichier = directory + nomGTFS + nomFichier + ".txt";
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(cheminFichier));
+			while ((ligne = br.readLine()) != null) {
+				if (ligne != null) {
+					String[] splitData = ligne.split("\\s*,\\s*");
+					resultat.add(splitData);
 				}
 			}
 			br.close();

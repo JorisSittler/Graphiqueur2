@@ -12,11 +12,11 @@ import graphique.importGtfs.data.builder.TripBuilder;
 
 import java.util.Map;
 
-public class MainStar {
+public class MainTGV {
 	static String directory = "..\\fichiers\\";
 
 	public static void main(String[] args) {
-		String nomGTFS = "GTFS_2018.10.0_20190708_20190901\\";
+		String nomGTFS = "export_gtfs_voyages\\";
 		long dateDebut = System.currentTimeMillis();
 
 		TripBuilder tb = new TripBuilder();
@@ -26,12 +26,12 @@ public class MainStar {
 
 		Map<String, Trip> listeTrips = tb.recupererToutAPartirDuFichier(directory, nomGTFS);
 		System.out.println("nombre de trips : " + listeTrips.size());
-		System.out.println(listeTrips.get("6262"));
+		// System.out.println(listeTrips.get("OCESN002101R0100110355"));
 
 		Map<String, Stop> listeStops = sb.recupererToutAPartirDuFichier(directory, nomGTFS);
 		System.out.println("nombre de stops : " + listeStops.size());
-		System.out.println(listeStops.get("stop_id"));
-		System.out.println(listeStops.get("1042"));
+		// System.out.println(listeStops.get("stop_id"));
+		// System.out.println(listeStops.get("StopArea:OCE87116178"));
 
 		Map<String, StopTime> listeStopTimes = stb.recupererToutAPartirDuFichier(directory, nomGTFS);
 		System.out.println("nombre de stopTimes : " + listeStopTimes.size());
@@ -42,16 +42,26 @@ public class MainStar {
 		long dateFin = System.currentTimeMillis();
 		System.out.println(("temps de calcul (ms) : " + (dateFin - dateDebut)));
 
-		// System.out.println(listeTrips.get("6262").afficher());
-		// LireContenuFichier.afficherTripsLigne(listeTrips, "0041");
+		// System.out.println(listeTrips.get("OCESN857777F0100162507").afficher());
 
-		// TableauHoraires th41 = new TableauHoraires("0041", "", listeTrips);
-		// th41.afficherCsvEnColonnes();
-		// th41.afficherCsvEnLignes();
-		// th41.afficherServices();
+		// afficherTripsLigne(listeTrips, "OCE17");
+		// afficherNumero(listeTrips, "857678");
 
-		TableauHoraires thMetro = new TableauHoraires("1001", "", listeTrips);
-		// thMetro.afficherServices();
-		thMetro.afficherCsvEnColonnes();
+		TableauHoraires thSup1 = new TableauHoraires("OCE235", "1", listeTrips);
+		TableauHoraires thSup2 = new TableauHoraires("OCE235", "0", listeTrips);
+		TableauHoraires thParisStras1 = new TableauHoraires("OCE1209972", "1", listeTrips);
+		TableauHoraires thParisStras2 = new TableauHoraires("OCESN-87113001-87212027", "1", listeTrips);
+
+		// System.out.println(thLMRennes.getListeTrips());
+		// System.out.println(thStrBsl.getListeTrips());
+
+		thSup1.afficherServices();
+		thSup1.afficherCsvEnLignes();
+		thSup2.afficherServices();
+		thSup2.afficherCsvEnLignes();
+
+		// thParisStras1.afficherCsvEnLignes();
+		// thParisStras1.afficherCsvEnColonnes();
+		// thParisStras2.afficherCsvEnLignes();
 	}
 }

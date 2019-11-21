@@ -17,6 +17,7 @@ public class TableauHoraires {
 	List<List<String>> tableau;
 
 	/**
+	 * génère le Tableau avec un filtre sur la ligne et une direction
 	 * 
 	 * @param idLigne
 	 * @param directionId
@@ -38,6 +39,24 @@ public class TableauHoraires {
 		}
 	}
 
+	/**
+	 * génère le Tableau sans contrainte de direction
+	 * 
+	 * @param idLigne
+	 * @param listeTrips
+	 */
+	public TableauHoraires(String idLigne, Map<String, Trip> listeTrips) {
+		this.idLigne = idLigne;
+		this.listeArrets = new ArrayList<>();
+		this.listeTrips = new HashMap<>();
+
+		for (Trip trip : listeTrips.values()) {
+			if (trip.getRouteId().contentEquals(idLigne)) {
+				this.listeTrips.put(trip.getTripId(), trip);
+			}
+		}
+	}
+
 	private void genererListeArrets() {
 		Iterator<Trip> it = listeTrips.values().iterator();
 		// prendre un trajet pour initialiser une liste préliminaire
@@ -52,8 +71,7 @@ public class TableauHoraires {
 		// parcourir les trajets, et s'ils contiennent des nouveaux trajets les ajouter au bon endroit
 		while (it.hasNext()) {
 			tr = it.next();
-			// première vérification : est-ce qu'on a un arrêt pas encore listé
-			// ?
+			// première vérification : est-ce qu'on a un arrêt pas encore listé ?
 			List<Stop> listeArretsDeCeTrip = new ArrayList<>();
 			for (StopTime st : tr.getListeArrets().values()) {
 				listeArretsDeCeTrip.add(st.getArret());
@@ -71,7 +89,7 @@ public class TableauHoraires {
 								break;
 							}
 						}
-						// Une fois cet arrêt déjà répertorié toruvé, on insère le nouveau juste après dans la liste
+						// Une fois cet arrêt déjà répertorié trouvé, on insère le nouveau juste après dans la liste
 						listeArrets.add(positionListeAvant + 1, listeArretsDeCeTrip.get(indexCeTrip));
 					}
 				}
@@ -126,8 +144,7 @@ public class TableauHoraires {
 						colonne.add(i, st.getDepartureTime());
 					}
 				}
-				// si on n'a pas trouvé l'horaire, on marque comme non
-				// desservi
+				// si on n'a pas trouvé l'horaire, on marque comme non desservi
 				if (!desservi) {
 					colonne.add(i, "   -   ");
 				}
@@ -167,8 +184,7 @@ public class TableauHoraires {
 	public void afficherCsvEnColonnes() {
 		List<List<String>> tab = getTableau();
 		for (int indexColonne = 0; indexColonne < tab.get(0).size(); indexColonne++) {
-			// on construit chaque ligne du tableau en parcourant toutes les
-			// colonnes
+			// on construit chaque ligne du tableau en parcourant toutes les colonnes
 			StringBuffer sb = new StringBuffer();
 			for (int indexLigne = 0; indexLigne < tab.size(); indexLigne++) {
 				sb.append(tab.get(indexLigne).get(indexColonne)).append(",");
