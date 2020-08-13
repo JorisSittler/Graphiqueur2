@@ -55,8 +55,34 @@ public class TableauHoraires {
 		}
 	}
 
+	public TableauHoraires(List<String> idLignes, Map<String, Trip> listeTrips) {
+		this(idLignes.get(0), listeTrips);
+		if (idLignes.size() > 1) {
+			for (int i = 1; i < idLignes.size(); i++) {
+				this.ajouterLigne(idLignes.get(i), listeTrips);
+			}
+		}
+	}
+
 	/**
-	 * Ajoute au tableau un autre ligne afin de regrouper les trajets
+	 * 
+	 * @param idLignes
+	 *            liste d'ID lignes qui seront toutes ajoutées au tableau
+	 * @param direction
+	 *            valable pour toutes les routes
+	 * @param listeTrips
+	 */
+	public TableauHoraires(List<String> idLignes, String direction, Map<String, Trip> listeTrips) {
+		this(idLignes.get(0), direction, listeTrips);
+		if (idLignes.size() > 1) {
+			for (int i = 1; i < idLignes.size(); i++) {
+				this.ajouterLigne(idLignes.get(i), direction, listeTrips);
+			}
+		}
+	}
+
+	/**
+	 * Ajoute au tableau une autre ligne afin de regrouper les trajets
 	 * 
 	 * @param ligne
 	 * @param direction
@@ -70,7 +96,7 @@ public class TableauHoraires {
 	}
 
 	/**
-	 * Ajoute au tableau un autre ligne afin de regrouper les trajets
+	 * Ajoute au tableau une autre ligne afin de regrouper les trajets
 	 * 
 	 * @param ligne
 	 */
@@ -155,7 +181,7 @@ public class TableauHoraires {
 			// dans les deux premières lignes on ajoute les infos spécifiques
 			List<String> colonne = new ArrayList<>();
 			colonne.add(tr.getTripHeadsign());
-			colonne.add(tr.getServiceId());
+			colonne.add(tr.getCalendar().afficher());
 
 			// Pour chaque autre ligne (on commence donc à 2 et non à 0), on
 			// cherche l'horaire de départ correspondant

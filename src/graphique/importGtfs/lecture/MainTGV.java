@@ -45,17 +45,16 @@ public class MainTGV {
 		TableauHoraires thSup1 = new TableauHoraires("OCE235", "1", listeTrips);
 		TableauHoraires thSup2 = new TableauHoraires("OCE235", "0", listeTrips);
 
-		thSup1.afficherServices();
+		// thSup1.afficherServices();
 		thSup1.afficherCsvEnLignes();
-		thSup2.afficherServices();
 		thSup2.afficherCsvEnLignes();
 
-		TableauHoraires thParisStras1 = new TableauHoraires("OCESN-87113001-87212027", "1", listeTrips);
-		thParisStras1.ajouterLigne("OCE1209972", "1", listeTrips);
-		thParisStras1.afficherCsvEnLignes();
-
-		TableauHoraires thParisStras2 = new TableauHoraires("OCESN-87113001-87212027", "0", listeTrips);
-		thParisStras2.ajouterLigne("OCE1209972", "0", listeTrips);
-		thParisStras2.afficherCsvEnLignes();
+		// TableauHoraires thParisStras1 = new TableauHoraires("OCESN-87113001-87212027", "1", listeTrips);
+		// thParisStras1.ajouterLigne("OCE1209972", "1", listeTrips);
+		// thParisStras1.afficherCsvEnLignes();
+		//
+		// TableauHoraires thParisStras2 = new TableauHoraires("OCESN-87113001-87212027", "0", listeTrips);
+		// thParisStras2.ajouterLigne("OCE1209972", "0", listeTrips);
+		// thParisStras2.afficherCsvEnLignes();
 	}
 }

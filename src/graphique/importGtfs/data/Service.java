@@ -67,13 +67,15 @@ public class Service extends DataElement {
 		// si l'entrée fournie n'est pas vide
 		if (exc != null && exc[2] != null) {
 			this.serviceId = exc[0];
-			LocalDate date = LocalDate.parse(exc[1], format);
-			if ("1".contentEquals(exc[2])) {
+			LocalDate date = LocalDate.parse(exc[1].replace("\"", ""), format);
+			if ("1".contentEquals(exc[2].replace("\"", ""))) {
 				// service ajouté à la date spécifié
 				this.exceptionsAjout.add(date);
-			} else if ("2".contentEquals(exc[2])) {
+			} else if ("2".contentEquals(exc[2].replace("\"", ""))) {
 				// service supprimmé à cette date
 				this.exceptionsMoins.add(date);
+			} else {
+				System.out.println("c'est le bordel avec les exceptions dans le calendrier");
 			}
 		}
 	}
@@ -101,6 +103,41 @@ public class Service extends DataElement {
 	@Override
 	public String getIdentifiant() {
 		return serviceId;
+	}
+
+	public String afficher() {
+		StringBuffer sb = new StringBuffer();
+		if (lundi)
+			sb.append(" lundi ");
+		if (mardi)
+			sb.append(" mardi ");
+		if (mercredi)
+			sb.append(" mercredi ");
+		if (jeudi)
+			sb.append(" jeudi ");
+		if (vendredi)
+			sb.append(" vendredi ");
+		if (samedi)
+			sb.append(" samedi ");
+		if (dimanche)
+			sb.append(" dimanche ");
+		if (dateDebut != null) {
+			sb.append(" du ").append(dateDebut).append(" au ").append(dateFin).append("; ");
+		}
+		if (exceptionsAjout != null && exceptionsAjout.size() > 0) {
+			sb.append("dates : ");
+			for (LocalDate date : exceptionsAjout) {
+				sb.append(date).append(" ");
+			}
+		}
+		if (exceptionsMoins != null && exceptionsMoins.size() > 0) {
+			sb.append("; dates supprimé : ");
+			for (LocalDate date : exceptionsMoins) {
+				sb.append(date).append(" ");
+			}
+		}
+
+		return sb.toString();
 	}
 
 	@Override
