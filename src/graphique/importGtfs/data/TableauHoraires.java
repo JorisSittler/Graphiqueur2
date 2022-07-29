@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class TableauHoraires {
-	private static final String PÉRIODE_DE_CIRCULATION = "Période de circulation";
+	private static final String PERIODE_DE_CIRCULATION = "PÃ©riode de circulation";
 	String idLigne;
 	String directionId;
 	Map<String, Trip> listeTrips;
@@ -17,7 +17,7 @@ public class TableauHoraires {
 	List<List<String>> tableau;
 
 	/**
-	 * génère le Tableau avec un filtre sur la ligne et une direction
+	 * gï¿½nï¿½re le Tableau avec un filtre sur la ligne et une direction
 	 * 
 	 * @param idLigne
 	 * @param directionId
@@ -38,7 +38,7 @@ public class TableauHoraires {
 	}
 
 	/**
-	 * génère le Tableau sans contrainte de direction
+	 * gï¿½nï¿½re le Tableau sans contrainte de direction
 	 * 
 	 * @param idLigne
 	 * @param listeTrips
@@ -67,7 +67,7 @@ public class TableauHoraires {
 	/**
 	 * 
 	 * @param idLignes
-	 *            liste d'ID lignes qui seront toutes ajoutées au tableau
+	 *            liste d'ID lignes qui seront toutes ajoutï¿½es au tableau
 	 * @param direction
 	 *            valable pour toutes les routes
 	 * @param listeTrips
@@ -110,7 +110,7 @@ public class TableauHoraires {
 
 	private void genererListeArrets() {
 		Iterator<Trip> it = listeTrips.values().iterator();
-		// prendre un trajet pour initialiser une liste préliminaire
+		// prendre un trajet pour initialiser une liste prï¿½liminaire
 		Trip tr;
 		if (it.hasNext()) {
 			tr = it.next();
@@ -122,17 +122,17 @@ public class TableauHoraires {
 		// parcourir les trajets, et s'ils contiennent des nouveaux trajets les ajouter au bon endroit
 		while (it.hasNext()) {
 			tr = it.next();
-			// première vérification : est-ce qu'on a un arrêt pas encore listé ?
+			// premiï¿½re vï¿½rification : est-ce qu'on a un arrï¿½t pas encore listï¿½ ?
 			List<Stop> listeArretsDeCeTrip = new ArrayList<>();
 			for (StopTime st : tr.getListeArrets().values()) {
 				listeArretsDeCeTrip.add(st.getArret());
 			}
-			// si oui on entre dans le mécanisme de complétion de la listeArrets
+			// si oui on entre dans le mï¿½canisme de complï¿½tion de la listeArrets
 			if (!listeArrets.containsAll(listeArretsDeCeTrip)) {
 				for (int indexCeTrip = 0; indexCeTrip < listeArretsDeCeTrip.size(); indexCeTrip++) {
-					// quand on a un arrêt à ajouter, on cherche à quel endroit de la liste l'ajouter
+					// quand on a un arrï¿½t ï¿½ ajouter, on cherche ï¿½ quel endroit de la liste l'ajouter
 					if (!listeArrets.contains(listeArretsDeCeTrip.get(indexCeTrip))) {
-						// recherche de l'arrêt déjà répertorié (dans la liste) précédent dans la séquence (du trip)
+						// recherche de l'arrï¿½t dï¿½jï¿½ rï¿½pertoriï¿½ (dans la liste) prï¿½cï¿½dent dans la sï¿½quence (du trip)
 						int positionListeAvant = -1;
 						for (int indexListeAvant = indexCeTrip; indexListeAvant >= 0; indexListeAvant--) {
 							if (listeArrets.contains(listeArretsDeCeTrip.get(indexListeAvant))) {
@@ -140,7 +140,7 @@ public class TableauHoraires {
 								break;
 							}
 						}
-						// Une fois cet arrêt déjà répertorié trouvé, on insère le nouveau juste après dans la liste
+						// Une fois cet arrï¿½t dï¿½jï¿½ rï¿½pertoriï¿½ trouvï¿½, on insï¿½re le nouveau juste aprï¿½s dans la liste
 						listeArrets.add(positionListeAvant + 1, listeArretsDeCeTrip.get(indexCeTrip));
 					}
 				}
@@ -156,19 +156,19 @@ public class TableauHoraires {
 	}
 
 	/**
-	 * Génère une liste de lignes pour tableau
+	 * Gï¿½nï¿½re une liste de lignes pour tableau
 	 * 
 	 * @return
 	 */
 	public List<List<String>> genererTableau() {
-		// créer le tableau qui contiendra toutes les colonnes
+		// crï¿½er le tableau qui contiendra toutes les colonnes
 		List<List<String>> resultat = new ArrayList<>(getListeTrips().size() + 1);
 
-		// colonne initiale : noms des arrêts
+		// colonne initiale : noms des arrï¿½ts
 		List<String> colonneNoms = new ArrayList<>();
-		colonneNoms.add("Numéro");
-		colonneNoms.add(PÉRIODE_DE_CIRCULATION);
-		// Ajouter le nom de chaque arrêt
+		colonneNoms.add("NumÃ©ro");
+		colonneNoms.add(PERIODE_DE_CIRCULATION);
+		// Ajouter le nom de chaque arrï¿½t
 		for (int i = 0; i < getListeArrets().size(); i++) {
 			colonneNoms.add(getListeArrets().get(i).getStopName());
 		}
@@ -178,36 +178,36 @@ public class TableauHoraires {
 		// TODO parcourir dans le bon ordre ??
 		// construction par colonne, plus pratique pour ordonner
 		for (Trip tr : getListeTrips().values()) {
-			// dans les deux premières lignes on ajoute les infos spécifiques
+			// dans les deux premiï¿½res lignes on ajoute les infos spï¿½cifiques
 			List<String> colonne = new ArrayList<>();
 			colonne.add(tr.getTripHeadsign());
 			colonne.add(tr.getCalendar().afficher());
 
-			// Pour chaque autre ligne (on commence donc à 2 et non à 0), on
-			// cherche l'horaire de départ correspondant
+			// Pour chaque autre ligne (on commence donc ï¿½ 2 et non ï¿½ 0), on
+			// cherche l'horaire de dï¿½part correspondant
 			for (int i = 2; i < colonneNoms.size(); i++) {
 				boolean desservi = false;
 				for (StopTime st : tr.getListeArrets().values()) {
-					// on parcourt tous les arrêts du trajet en espérant
+					// on parcourt tous les arrï¿½ts du trajet en espï¿½rant
 					// tomber sur le bon
 					if (colonneNoms.get(i).contentEquals(st.getArret().getStopName())) {
 						desservi = true;
 						colonne.add(i, st.getDepartureTime());
 					}
 				}
-				// si on n'a pas trouvé l'horaire, on marque comme non desservi
+				// si on n'a pas trouvï¿½ l'horaire, on marque comme non desservi
 				if (!desservi) {
 					colonne.add(i, "   -   ");
 				}
 			}
 			resultat.add(colonne);
 		}
-		System.out.println("nombre de trips : " + listeTrips.size() + ", nombre de lignes créées : " + resultat.size());
+		System.out.println("nombre de trips : " + listeTrips.size() + ", nombre de lignes crï¿½ï¿½es : " + resultat.size());
 		return resultat;
 	}
 
 	/**
-	 * Représente chaque course par une ligne
+	 * Reprï¿½sente chaque course par une ligne
 	 */
 	public void afficherCsvEnLignes() {
 		List<List<String>> tab = getTableau();
@@ -217,20 +217,20 @@ public class TableauHoraires {
 	}
 
 	/**
-	 * Représente chaque course par une ligne
+	 * Reprï¿½sente chaque course par une ligne
 	 */
 	public void afficherCsvEnLignes(int serviceId) {
 		List<List<String>> tab = getTableau();
 		for (List<String> ligne : tab) {
 			if (ligne.get(1).contentEquals(Integer.toString(serviceId))
-					|| ligne.get(1).contentEquals(PÉRIODE_DE_CIRCULATION)) {
+					|| ligne.get(1).contentEquals(PERIODE_DE_CIRCULATION)) {
 				System.out.println(ligne);
 			}
 		}
 	}
 
 	/**
-	 * Représente chaque course sous forme de colonne
+	 * Reprï¿½sente chaque course sous forme de colonne
 	 */
 	public void afficherCsvEnColonnes() {
 		List<List<String>> tab = getTableau();

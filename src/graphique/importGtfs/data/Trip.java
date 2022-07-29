@@ -13,7 +13,7 @@ public class Trip extends DataElement {
 	String shapeId;
 
 	/**
-	 * La liste des arrêts desservis, avec comme clé le numéro de séquence
+	 * La liste des arrï¿½ts desservis, avec comme clï¿½ le numï¿½ro de sï¿½quence
 	 */
 	ConcurrentMap<Integer, StopTime> listeArrets;
 
@@ -122,7 +122,7 @@ public class Trip extends DataElement {
 
 	public String afficher() {
 		StringBuffer sb = new StringBuffer("\nTrip [routeId=" + routeId + ", serviceId=" + serviceId + ", tripId="
-				+ tripId + ", tripHeadsign=" + tripHeadsign + ", directionId=" + directionId + "\n");
+				+ tripId + ", tripHeadsign=" + tripHeadsign + ", directionId=" + directionId + "]\n");
 
 		if (listeArrets != null && !listeArrets.isEmpty()) {
 			for (StopTime st : listeArrets.values()) {

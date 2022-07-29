@@ -12,7 +12,7 @@ import java.util.Map;
 
 public abstract class DataElementBuilder {
 	/**
-	 * largeur maximale du csv, peut être paramétrée pour chaque type (optimisation)
+	 * largeur maximale du csv, peut ï¿½tre paramï¿½trï¿½e pour chaque type (optimisation)
 	 */
 	protected static int largeurCSV = 12;
 
@@ -40,7 +40,7 @@ public abstract class DataElementBuilder {
 			}
 			br.close();
 		} catch (IOException e) {
-			System.out.println("erreur désérialization : " + e);
+			System.out.println("erreur dÃ©sÃ©rialization : " + e);
 			System.exit(-1);
 		}
 		return resultat;
@@ -68,14 +68,14 @@ public abstract class DataElementBuilder {
 			}
 			br.close();
 		} catch (IOException e) {
-			System.out.println("erreur désérialization : " + e);
+			System.out.println("erreur dÃ©sÃ©rialization : " + e);
 			System.exit(-1);
 		}
 		return resultat;
 	}
 
 	/**
-	 * Lit une ligne (csv convertie en Array) et renvoie l'élément créé avec
+	 * Lit une ligne (csv convertie en Array) et renvoie l'ï¿½lï¿½ment crï¿½ï¿½ avec
 	 * 
 	 * @param ligne
 	 * @return
